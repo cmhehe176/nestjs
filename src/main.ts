@@ -5,6 +5,8 @@ require('dotenv').config();
 let port = process.env.PORT
 let begin = async()=>{
   let app = await NestFactory.create(AppModule)
-  await app.listen(port)
+  await app.listen(port,()=>{
+    console.log('localhost:'+port)
+  })
 }
 begin()

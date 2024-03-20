@@ -4,6 +4,8 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+//định nghĩa các entity,relation
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +13,68 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+
 }
+
+model Student{
+  id Int @id @default(autoincrement())
+  name String
+
+  //student - subject
+  subject studentsubject[]
+  //student - teacher
+  teacherID Int
+  teacher Teacher @relation( fields:[teacherID],references: [id])
+  //student-class
+  classID Int
+  class Class @relation(fields: [classID], references: [id])
+}
+
+model Subject{
+  id Int @id @default(autoincrement())
+  name String
+
+  //subject - student
+  student studentsubject[]
+  //subject-teacher
+  teacher Teacher?
+}
+model Teacher{
+  id Int @id @default(autoincrement())
+
+  //teacher - student
+  student Student[]
+  //teacher-subject
+  subjectID Int @unique
+  subject Subject @relation(fields: [subjectID], references: [id])
+  //teacher-class
+  class teacherclass[]
+}
+
+model Class {
+  id Int @id @default(autoincrement())
+
+  //class-student
+  student Student[]
+  //class-teacher
+  teacher teacherclass[]
+}
+//many to many
+model studentsubject{
+  subjectID Int
+  subject Subject @relation(fields: [subjectID],references: [id])
+  studentID Int
+  student Student @relation(fields: [studentID],references: [id])
+  @@id([studentID,subjectID])
+}
+model teacherclass{
+  classID Int
+  class Class @relation(fields: [classID], references: [id])
+  teacherID Int
+  teacher Teacher @relation(fields: [teacherID],references: [id])
+  @@id([classID,teacherID])
+}
+
+
+
+
