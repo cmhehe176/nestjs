@@ -11,6 +11,8 @@ export class AuthService {
 		private jwtService: JwtService,
 		private configService: ConfigService,
 		){}
+
+
 	async signJwtToken(studentId: number, email: string):Promise<{accessToken: string}>{
         const payload = {
             sub: studentId,email
@@ -23,6 +25,7 @@ export class AuthService {
             accessToken: jwtString,
         }
     }
+
 	async register(authDTO: AuthDTO){
 		const hashpassword = await argon.hash(authDTO.password)
 		try{
@@ -45,6 +48,7 @@ export class AuthService {
 			console.log(e)
 		}
 	}
+
 	async login(authDTO: AuthDTO){        
         
         const student = await this.prismaService.student.findUnique({
@@ -69,3 +73,4 @@ export class AuthService {
         return await this.signJwtToken(student.id, student.email)        
     }
 }
+///sdfasdfasdfsadfsdf
