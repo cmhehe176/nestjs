@@ -9,5 +9,18 @@ export class AuthService {
 		
 		){}
 	//
+    async register(authDTO: AuthDTO){
+        const hashpassword = await argon.hash(authDTO.password)
+        let student = await this.prismaService.student.create({
+            data:{
+                email: authDTO.email,
+                name: authDTO.name,
+                address: authDTO.address,
+                password: hashpassword,
+            }
+           
+        })
+        console.log(student)
     }
+    
 }

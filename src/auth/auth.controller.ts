@@ -14,10 +14,10 @@ export class AuthController {
     }
 
     //dang nhap
-    @Post("login")
-    login(@Body() authDTO: AuthDTO){
-        return this.authService.login(authDTO)
-    }
+    // @Post("login")
+    // login(@Body() authDTO: AuthDTO){
+    //     return this.authService.login(authDTO)
+    // }
 
 
 
