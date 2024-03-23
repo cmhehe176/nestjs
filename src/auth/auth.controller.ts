@@ -9,13 +9,24 @@ export class AuthController {
     constructor(private authService: AuthService){}
     //nhung request tu ben client
     //dang ky
-    @Post('register')
-    register(@Body() authDTO: AuthDTO){
-        return this.authService.register(authDTO)
-    }
+    // @Post('register')
+    // register(@Body() authDTO: AuthDTO){
+    //     return this.authService.register(authDTO)
+    // }
     //dang nhap
     // @Post("login")
     // login(@Body() authDTO: AuthDTO){
     //     return this.authService.login(authDTO)
     // }
+    @Post('register')
+    async signupStudent(
+      @Body() authDTO: AuthDTO,
+    ): Promise<Student> {
+      return this.authService.createStudent(authDTO);
+    }
+
+
+
+
+
 }
