@@ -69,3 +69,11 @@ export class AuthService {
         return await this.signJwtToken(student.id, student.email)        
     }
 }
+
+
+
+
+
+
+
+//scheck 
